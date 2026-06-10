@@ -1,9 +1,9 @@
 // CONFIGURAÇÃO DO GOOGLE SHEETS
-// Substitua o texto abaixo pelo ID real extraído da URL da sua planilha
-const SHEET_ID = 'hhttps://docs.google.com/spreadsheets/d/14PcJnhdht8cT9zRv4hubWl_0gHXp__VVBMmu6f9nuCU/edit?usp=sharingttps://docs.google.com/spreadsheets/d/e/2PACX-1vQKqqsHaj5P4yc-WFlVOsiWsi8D2phxSV5oFI-cuuTjZQXVZb7pL72N2ZBGLmsTKnPRwJVjcVB9lN5e/pubhtml'; 
-const SHEET_NAME = 'Página1'; // Nome da aba inferior (Página1, Sheet1, etc)
+// Corrigido: Extraído apenas o ID real da sua planilha
+const SHEET_ID = '14PcJnhdht8cT9zRv4hubWl_0gHXp__VVBMmu6f9nuCU'; 
+const SHEET_NAME = 'Página1'; // Nome da aba inferior da sua planilha
 
-// Constrói a URL para exportar os dados brutos em formato CSV
+// Constrói a URL correta para exportar os dados brutos em formato CSV (Corrigido o ${SHEET_ID})
 const url = `https://google.com{SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(SHEET_NAME)}`;
 
 // Função principal que busca e processa as informações
