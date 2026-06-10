@@ -1,316 +1,310 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/>
-<title> cocaina neonSão Pedro do Ivaí</title>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
-<style>
-:root {
-  --bg:#05111e;--surface:#081828;--card:#0a1e32;--card2:#0d2440;
-  --border:rgba(48,160,255,0.14);--borderH:rgba(48,160,255,0.38);
-  --a1:#30a0ff;--a2:#5abeff;--a3:#8fd8ff;
-  --text:#ddeeff;--muted:#4f7fa0;
-  --green:#1ee89a;--yellow:#ffce3a;--orange:#ff8c3a;--red:#ff4040;
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;
-background-image:radial-gradient(ellipse 100% 60% at 50% 0%,rgba(12,45,90,0.6) 0%,transparent 70%);}
-
-header{display:flex;align-items:center;gap:14px;padding:14px 26px;
-background:rgba(5,17,30,0.95);border-bottom:1px solid var(--border);
-position:sticky;top:0;z-index:200;backdrop-filter:blur(16px);}
-.logo-icon{width:40px;height:40px;border-radius:11px;
-background:linear-gradient(135deg,#0f6030,#1ee89a);
-display:flex;align-items:center;justify-content:center;font-size:20px;
-box-shadow:0 0 18px rgba(30,232,154,0.3);flex-shrink:0;}
-header h1{font-size:1.25rem;font-weight:800;color:#fff;letter-spacing:.2px;}
-header h1 span{color:var(--muted);font-weight:400;font-size:.95rem;}
-.hdr-right{margin-left:auto;display:flex;align-items:center;gap:16px;}
-.online-pill{display:flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;
-background:rgba(30,232,154,.08);border:1px solid rgba(30,232,154,.22);
-font-size:.7rem;font-weight:600;color:var(--green);}
-.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);
-box-shadow:0 0 7px var(--green);animation:blink 2s infinite;}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-#clock{font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--a2);}
-
-.hero-bar{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--border);}
-.hb-cell{padding:16px 20px;display:flex;align-items:center;gap:12px;
-border-right:1px solid var(--border);background:var(--surface);
-position:relative;overflow:hidden;transition:background .2s;}
-.hb-cell:last-child{border-right:none;}
-.hb-cell:hover{background:var(--card);}
-.hb-cell::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
-background:linear-gradient(90deg,transparent,var(--a1),transparent);opacity:0;transition:opacity .3s;}
-.hb-cell:hover::after{opacity:1;}
-.hb-ico{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;}
-.hb-ico.blue{background:rgba(48,160,255,.1);box-shadow:0 0 12px rgba(48,160,255,.1);}
-.hb-ico.teal{background:rgba(30,232,154,.08);box-shadow:0 0 12px rgba(30,232,154,.08);}
-.hb-text .lbl{font-size:.65rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:3px;}
-.hb-text .val{font-size:1.55rem;font-weight:800;color:var(--a2);font-family:'JetBrains Mono',monospace;line-height:1;}
-.hb-text .unit{font-size:.72rem;color:var(--muted);font-family:'Sora',sans-serif;}
-
-.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;padding:14px 18px;align-items:start;}
-.col{display:flex;flex-direction:column;gap:14px;}
-
-.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;
-box-shadow:0 2px 24px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.03);
-transition:border-color .25s,box-shadow .25s;position:relative;}
-.card::before{content:'';position:absolute;top:0;left:20px;right:20px;height:1px;
-background:linear-gradient(90deg,transparent,rgba(48,160,255,.25),transparent);}
-.card:hover{border-color:var(--borderH);box-shadow:0 8px 36px rgba(48,160,255,.09),0 2px 24px rgba(0,0,0,.45);}
-.card-title{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:1.4px;
-color:var(--a1);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
-.ctbar{width:3px;height:13px;border-radius:2px;background:var(--a1);box-shadow:0 0 8px var(--a1);flex-shrink:0;}
-
-.temp-hero{background:linear-gradient(135deg,rgba(48,160,255,.1) 0%,rgba(48,160,255,.03) 100%);
-border:1px solid rgba(48,160,255,.22);border-radius:14px;padding:18px 20px;margin-bottom:18px;
-display:flex;align-items:center;gap:18px;}
-.temp-emoji{font-size:2.4rem;filter:drop-shadow(0 0 8px rgba(255,200,60,.4));}
-.temp-num{font-size:3rem;font-weight:800;font-family:'JetBrains Mono',monospace;color:var(--a2);
-line-height:1;text-shadow:0 0 30px rgba(90,190,255,.35);}
-.temp-unit{font-size:1.3rem;color:var(--muted);}
-.temp-range{margin-top:6px;display:flex;gap:12px;font-size:.76rem;font-weight:600;}
-.temp-min{color:#62ceff;}.temp-max{color:var(--orange);}
-
-.srow{display:flex;align-items:center;justify-content:space-between;
-padding:10px 0;border-bottom:1px solid rgba(48,160,255,.07);}
-.srow:last-child{border-bottom:none;}
-.slabel{font-size:.79rem;color:var(--muted);display:flex;align-items:center;gap:9px;}
-.sic{width:30px;height:30px;border-radius:8px;background:rgba(48,160,255,.07);
-border:1px solid rgba(48,160,255,.1);display:flex;align-items:center;justify-content:center;
-font-size:.9rem;flex-shrink:0;}
-.sval{font-size:1rem;font-weight:700;font-family:'JetBrains Mono',monospace;color:var(--text);}
-
-.wbar-wrap{margin:10px 0 16px;}
-.wbar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
-.wbar-head .lbl{font-size:.79rem;color:var(--muted);}
-.wbar-pct{font-size:1.15rem;font-weight:800;font-family:'JetBrains Mono',monospace;color:var(--a2);}
-.wbar-track{height:12px;border-radius:6px;background:rgba(48,160,255,.08);overflow:hidden;}
-.wbar-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--a1),var(--green));
-box-shadow:0 0 12px rgba(48,160,255,.3);width:0;transition:width 1.8s cubic-bezier(.4,0,.2,1);}
-
-.map-wrap{border-radius:12px;overflow:hidden;position:relative;
-border:1px solid var(--border);box-shadow:0 0 28px rgba(48,160,255,.1);
-background:#04101c;margin-bottom:12px;}
-.map-wrap img{width:100%;display:block;border-radius:12px;}
-.map-badge{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);
-background:rgba(5,17,30,.9);border:1px solid var(--borderH);border-radius:20px;padding:6px 18px;
-font-family:'JetBrains Mono',monospace;font-size:.83rem;color:var(--a2);font-weight:600;
-backdrop-filter:blur(10px);white-space:nowrap;box-shadow:0 0 14px rgba(48,160,255,.2);}
-.legend-row{display:flex;align-items:center;justify-content:center;gap:8px;
-font-size:.64rem;color:var(--muted);margin-bottom:14px;}
-.leg-bar{width:140px;height:7px;border-radius:4px;
-background:linear-gradient(90deg,#1a6fff,#00e5ff,#80ff40,#ffee00,#ff8800,#ff2200);
-border:1px solid rgba(255,255,255,.08);}
-
-.gauge-wrap{display:flex;flex-direction:column;align-items:center;padding:6px 0 10px;}
-.gauge-ring{position:relative;width:136px;height:136px;}
-.gauge-ring svg{transform:rotate(-90deg);}
-.gauge-inner{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
-.gauge-pct{font-size:2.1rem;font-weight:800;font-family:'JetBrains Mono',monospace;color:var(--a2);line-height:1;}
-.gauge-sub{font-size:.62rem;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.8px;}
-.gauge-badge{margin-top:10px;display:inline-flex;align-items:center;gap:6px;
-background:rgba(30,232,154,.08);border:1px solid rgba(30,232,154,.28);border-radius:20px;
- padding:5px 14px;font-size:.76rem;font-weight:600;color:var(--green);}
-
-.tl-list{display:flex;flex-direction:column;gap:8px;margin-top:4px;}
-.tl-row{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;
-border-radius:10px;font-size:.82rem;font-weight:600;border:1px solid transparent;
-transition:transform .15s,box-shadow .15s;cursor:pointer;}
-.tl-row:hover{transform:translateX(4px);}
-.tl-row.ideal{background:rgba(30,232,154,.09);border-color:rgba(30,232,154,.26);color:var(--green);}
-.tl-row.atencao{background:rgba(255,206,58,.08);border-color:rgba(255,206,58,.23);color:var(--yellow);}
-.tl-row.nao{background:rgba(255,64,64,.08);border-color:rgba(255,64,64,.22);color:var(--red);}
-.tl-right{display:flex;align-items:center;gap:8px;}
-.tl-dot{width:10px;height:10px;border-radius:50%;}
-.ideal .tl-dot{background:var(--green);box-shadow:0 0 8px var(--green);}
-.atencao .tl-dot{background:var(--yellow);box-shadow:0 0 7px var(--yellow);}
-.nao .tl-dot{background:var(--red);box-shadow:0 0 7px var(--red);}
-.tl-now{font-size:.65rem;background:rgba(30,232,154,.14);border-radius:10px;padding:2px 8px;}
-
-.dis-list{display:flex;flex-direction:column;gap:9px;}
-.dis-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;
-border-radius:10px;background:rgba(255,255,255,.02);border:1px solid rgba(48,160,255,.08);
-font-size:.81rem;font-weight:500;transition:background .2s,border-color .2s;cursor:pointer;}
-.dis-row:hover{background:rgba(48,160,255,.06);border-color:rgba(48,160,255,.16);}
-.dis-name{color:var(--text);display:flex;align-items:center;gap:8px;}
-.badge{padding:4px 11px;border-radius:20px;font-size:.68rem;font-weight:700;letter-spacing:.5px;}
-.badge.alto{background:rgba(255,64,64,.14);color:var(--red);border:1px solid rgba(255,64,64,.32);}
-.badge.moderado{background:rgba(255,206,58,.1);color:var(--yellow);border:1px solid rgba(255,206,58,.28);}
-.badge.baixo{background:rgba(30,232,154,.09);color:var(--green);border:1px solid rgba(30,232,154,.26);}
-
-.sol-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px;}
-.sol-card{background:var(--card2);border:1px solid var(--border);border-radius:12px;
-padding:14px;text-align:center;transition:border-color .2s,transform .2s;}
-.sol-card:hover{border-color:var(--borderH);transform:translateY(-2px);}
-.sol-ico{font-size:1.6rem;margin-bottom:5px;}
-.sol-val{font-size:1.2rem;font-weight:800;color:var(--a2);font-family:'JetBrains Mono',monospace;}
-.sol-lbl{font-size:.66rem;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.6px;}
-
-.alt-list{display:flex;flex-direction:column;gap:8px;}
-.alt-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;
-font-size:.79rem;font-weight:500;background:rgba(255,140,58,.06);
-border:1px solid rgba(255,140,58,.18);color:#ffaa6e;transition:background .2s,transform .15s;cursor:pointer;}
-.alt-row:hover{background:rgba(255,140,58,.11);transform:translateX(3px);}
-.alt-row.blue{background:rgba(48,160,255,.06);border-color:rgba(48,160,255,.18);color:var(--a2);}
-.alt-row.blue:hover{background:rgba(48,160,255,.11);}
-
-.inner2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
-.inner-title{font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:1.3px;
-color:var(--a1);margin-bottom:12px;display:flex;align-items:center;gap:6px;}
-
-.two-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-
-/* ========== RESPONSIVIDADE ========== */
-@media (max-width: 1000px) {
-  .grid { grid-template-columns: 1fr 1fr; }
-  .col:last-child { grid-column: span 2; }
-  .two-cols { grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 680px) {
-  .grid { grid-template-columns: 1fr; }
-  .col:last-child { grid-column: span 1; }
-  .two-cols { grid-template-columns: 1fr; }
-  .hero-bar { grid-template-columns: 1fr 1fr; }
-  .hb-text .val { font-size: 1.2rem; }
-  .hb-ico { width: 36px; height: 36px; font-size: 1rem; }
-  .card { padding: 14px; }
-  .temp-num { font-size: 2.2rem; }
-  .gauge-ring { width: 110px; height: 110px; }
-  .gauge-ring svg { width: 110px; height: 110px; }
-  .map-badge { font-size: 0.7rem; white-space: normal; width: 90%; text-align: center; }
-  .inner2 { grid-template-columns: 1fr; }
-}
-@media (max-width: 480px) {
-  header h1 { font-size: 0.85rem; }
-  header h1 span { display: none; }
-  .hero-bar { grid-template-columns: 1fr; }
-  .hb-text .val { font-size: 1.1rem; }
-  .temp-num { font-size: 1.8rem; }
-  .gauge-ring { width: 90px; height: 90px; }
-  .gauge-ring svg { width: 90px; height: 90px; }
-  .gauge-pct { font-size: 1.3rem; }
-  .inner2 { grid-template-columns: 1fr; }
-  .two-cols { grid-template-columns: 1fr; }
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cocari Coop — São Pedro do Ivaí</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<header>
-  <div class="logo-icon">🌿</div>
-  <h1>Cocari <span>Coop – São Pedro do Ivaí</span></h1>
-  <div class="hdr-right">
-    <div class="online-pill"><div class="live-dot"></div>Online</div>
-    <span id="clock">--:--:--</span>
-  </div>
-</header>
-
-<div class="hero-bar">
-  <div class="hb-cell"><div class="hb-ico blue">🌧️</div><div class="hb-text"><div class="lbl">Chuva Hoje</div><div class="val">12.4 <span class="unit">mm</span></div></div></div>
-  <div class="hb-cell"><div class="hb-ico blue">🗓️</div><div class="hb-text"><div class="lbl">Chuva em 30 Dias</div><div class="val">145 <span class="unit">mm</span></div></div></div>
-  <div class="hb-cell"><div class="hb-ico blue">🌡️</div><div class="hb-text"><div class="lbl">Temperatura Atual</div><div class="val">24.8 <span class="unit">°C</span></div></div></div>
-  <div class="hb-cell"><div class="hb-ico teal">💨</div><div class="hb-text"><div class="lbl">Vento</div><div class="val">13 <span class="unit">km/h NO</span></div></div></div>
-</div>
-
-<div class="grid">
-  <!-- COLUNA 1 - ESTAÇÃO METEOROLÓGICA -->
-  <div class="col">
-    <div class="card">
-      <div class="card-title"><div class="ctbar"></div>Estação Meteorológica — Últimos 7 Dias</div>
-      <div class="temp-hero">
-        <div class="temp-emoji">🌡️</div>
-        <div>
-          <div class="temp-num">24.8<span class="temp-unit">°C</span></div>
-          <div class="temp-range"><span class="temp-min">↓ Mín 18.2°C</span><span class="temp-max">↑ Máx 30.5°C</span></div>
-        </div>
-      </div>
-      <div class="srow"><span class="slabel"><div class="sic">💧</div>Umidade Relativa</span><span class="sval">68%</span></div>
-      <div class="srow"><span class="slabel"><div class="sic">➡️</div>Vento</span><span class="sval">13 km/h NO</span></div>
-      <div class="srow"><span class="slabel"><div class="sic">🌬️</div>Rajada</span><span class="sval">27 km/h</span></div>
-      <div class="srow"><span class="slabel"><div class="sic">🌧️</div>Chuva Hoje</span><span class="sval">12.4 mm</span></div>
-      <div class="srow"><span class="slabel"><div class="sic">💦</div>Evapotranspiração</span><span class="sval">3.8 mm</span></div>
+  <!-- ══════════════════════════════════════
+       HEADER
+  ══════════════════════════════════════ -->
+  <header class="topbar">
+    <div class="topbar-brand">
+      <svg class="brand-icon" width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <path d="M14 3C14 3 6 8 6 16C6 20.4 9.6 24 14 24C18.4 24 22 20.4 22 16C22 8 14 3 14 3Z" fill="#96ceea" opacity="0.25"/>
+        <path d="M14 3C14 3 6 8 6 16C6 20.4 9.6 24 14 24" stroke="#96ceea" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M14 3C14 3 22 8 22 16C22 20.4 18.4 24 14 24" stroke="#a6d1ad" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="14" cy="16" r="3" fill="#96ceea"/>
+      </svg>
+      <span class="brand-title">Cocari Coop — São Pedro do Ivaí</span>
     </div>
-  </div>
-
-  <!-- COLUNA 2 - MAPA + BALANÇO + RADIAÇÃO -->
-  <div class="col">
-    <div class="card">
-      <div class="card-title"><div class="ctbar"></div>Mapa de Chuva — Últimos 7 Dias</div>
-      <div class="map-wrap">
-        <img src="mapa_chuva.png" alt="Mapa de Chuva">
-        <div class="map-badge">📍 Acumulado: 85 mm</div>
-      </div>
-      <div class="legend-row"><span>Baixo</span><div class="leg-bar"></div><span>Alto</span></div>
-    </div>
-    
-    <div class="card">
-      <div class="card-title"><div class="ctbar"></div>Balanço Hídrico — Últimos 7 Dias</div>
-      <div class="wbar-wrap">
-        <div class="wbar-head"><span class="lbl">🌱 Disponibilidade de Água</span><span class="wbar-pct">92%</span></div>
-        <div class="wbar-track"><div class="wbar-fill" data-w="92"></div></div>
-      </div>
-      <div class="srow"><span class="slabel"><div class="sic">💧</div>Déficit Hídrico</span><span class="sval" style="color:var(--green)">0 mm</span></div>
-      <div class="srow"><span class="slabel"><div class="sic">🌊</div>Excesso Hídrico</span><span class="sval" style="color:var(--yellow)">15 mm</span></div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><div class="ctbar"></div>Radiação Solar / ET₀</div>
-      <div class="sol-grid">
-        <div class="sol-card"><div class="sol-ico">☀️</div><div class="sol-val">850</div><div class="sol-lbl">W/m²</div></div>
-        <div class="sol-card"><div class="sol-ico">💧</div><div class="sol-val">3.8</div><div class="sol-lbl">mm/dia ET₀</div></div>
+    <div class="topbar-actions">
+      <button class="icon-btn" title="Conectividade">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor"/></svg>
+      </button>
+      <button class="icon-btn" id="btn-sync" title="Sincronizar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+      </button>
+      <button class="icon-btn" title="Configurações">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+      <div class="topbar-divider"></div>
+      <div class="station-badge">
+        <span class="station-dot"></span>
+        <span>Estação Ativa</span>
       </div>
     </div>
-  </div>
+  </header>
 
-  <!-- COLUNA 3 - UMIDADE + SEMÁFORO + ALERTAS -->
-  <div class="col">
-    <div class="two-cols">
-      <div class="card">
-        <div class="card-title"><div class="ctbar"></div>Índice de Umidade do Solo</div>
-        <div class="gauge-wrap">
-          <div class="gauge-ring">
-            <svg viewBox="0 0 136 136" width="136" height="136">
-              <circle cx="68" cy="68" r="56" fill="none" stroke="rgba(48,160,255,0.09)" stroke-width="10"/>
-              <circle cx="68" cy="68" r="56" fill="none" stroke="url(#gg)" stroke-width="10"
-                      stroke-dasharray="0" stroke-dashoffset="84.4" stroke-linecap="round"
-                      style="filter:drop-shadow(0 0 7px rgba(48,160,255,.45))"/>
-              <defs><linearGradient id="gg" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#30a0ff"/><stop offset="100%" stop-color="#1ee89a"/>
-              </linearGradient></defs>
-            </svg>
-            <div class="gauge-inner"><div class="gauge-pct">7%</div><div class="gauge-sub">Umidade</div></div>
+  <!-- ══════════════════════════════════════
+       LAYOUT WRAPPER
+  ══════════════════════════════════════ -->
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <p class="sidebar-title">Agricultural Monitor</p>
+        <p class="sidebar-sub">Painel de Controle</p>
+      </div>
+      <ul class="sidebar-nav">
+        <li>
+          <a href="#" class="nav-item active">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10"/><path d="M12 8v4l3 3"/><path d="M18 2l4 4-4 4"/><path d="M22 2l-4 4"/></svg>
+            <span>Aplicação</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+            <span>Balanço Hídrico</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span>Risco de Doenças</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
+            <span>Mapas</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+      <div class="bento-grid">
+
+        <!-- ── COLUNA ESQUERDA ── -->
+        <div class="col-left">
+
+          <!-- Card: Dados ao Vivo -->
+          <div class="card card-live">
+            <div class="card-live-header">
+              <div>
+                <p class="card-eyebrow">Dados ao Vivo</p>
+              </div>
+              <div class="live-badge-wrap">
+                <span class="live-badge-label">ESTAÇÃO</span>
+                <span class="live-badge-label">METEOROLÓGICA</span>
+              </div>
+            </div>
+
+            <!-- Temperatura Principal -->
+            <div class="temp-main">
+              <div class="temp-icon-row">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#96ceea" stroke-width="1.8"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>
+                <span class="temp-label-sm">TEMPERATURA</span>
+              </div>
+              <div class="temp-value" id="val-temp">24.8°C</div>
+              <div class="temp-range">
+                <span>Min: <strong id="val-temp-min">18.2°C</strong></span>
+                <span>Máx: <strong id="val-temp-max">30.5°C</strong></span>
+              </div>
+            </div>
+
+            <!-- Grid métricas secundárias -->
+            <div class="metrics-secondary">
+              <div class="metric-item">
+                <div class="metric-icon-wrap blue">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                </div>
+                <div>
+                  <p class="metric-item-label">Umidade</p>
+                  <p class="metric-item-value" id="val-hum">68%</p>
+                </div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-icon-wrap green">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg>
+                </div>
+                <div>
+                  <p class="metric-item-label">Vento</p>
+                  <p class="metric-item-value" id="val-wind">13 km/h NO</p>
+                </div>
+              </div>
+              <div class="metric-item metric-full">
+                <div class="metric-icon-wrap amber">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/><circle cx="12" cy="12" r="4"/></svg>
+                </div>
+                <div>
+                  <p class="metric-item-label">Total da Semana</p>
+                  <p class="metric-item-value" id="val-rain-week">12.4 mm</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="gauge-badge">✅ Condição Adequada</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title"><div class="ctbar"></div>Semáforo de Pulverização</div>
-        <div class="tl-list">
-          <div class="tl-row ideal"><span>Ideal</span><div class="tl-right"><span class="tl-now">Atual</span><div class="tl-dot"></div></div></div>
-          <div class="tl-row atencao"><span>Atenção</span><div class="tl-dot"></div></div>
-          <div class="tl-row nao"><span>Não Pulverizar</span><div class="tl-dot"></div></div>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-title"><div class="ctbar"></div>Alertas Ativos</div>
-      <div class="alt-list">
-        <div class="alt-row">⛈️&nbsp;&nbsp;Alerta de Chuvas Intensas</div>
-        <div class="alt-row">🌡️&nbsp;&nbsp;Risco de Estresse Térmico</div>
-        <div class="alt-row">❄️&nbsp;&nbsp;Perigo de Geada</div>
-        <div class="alt-row blue">💨&nbsp;&nbsp;Ventos Fortes</div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<script>
-function tick(){document.getElementById('clock').textContent=new Date().toLocaleTimeString('pt-BR');}
-tick();setInterval(tick,1000);
-setTimeout(()=>{document.querySelectorAll('.wbar-fill').forEach(el=>{el.style.width=el.dataset.w+'%';});},350);
-</script>
+          <!-- Card: Balanço Hídrico -->
+          <div class="card card-hidrico">
+            <div class="card-header-row">
+              <h3 class="card-title green">Balanço Hídrico</h3>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a6d1ad" stroke-width="1.8"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+            </div>
+            <div class="hidrico-body">
+              <div class="hidrico-bar-section">
+                <div class="hidrico-bar-labels">
+                  <span>Disponibilidade de Água</span>
+                  <span class="hidrico-pct green" id="val-water-pct">92%</span>
+                </div>
+                <div class="progress-track">
+                  <div class="progress-fill green" id="bar-water" style="width: 92%"></div>
+                </div>
+              </div>
+              <div class="hidrico-divider"></div>
+              <div class="hidrico-row">
+                <span class="hidrico-label">Déficit Hídrico</span>
+                <span class="hidrico-val red" id="val-deficit">0 mm</span>
+              </div>
+              <div class="hidrico-row">
+                <span class="hidrico-label">Excesso Hídrico</span>
+                <span class="hidrico-val green" id="val-excess">15 mm</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── COLUNA CENTRAL ── -->
+        <div class="col-center">
+          <div class="card card-map">
+            <!-- Mapa header -->
+            <div class="map-topbar">
+              <h3 class="map-title">Mapa de Chuva (Últimos 7 dias)</h3>
+              <div class="map-btns">
+                <button class="map-btn" title="Camadas">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                </button>
+                <button class="map-btn" title="Zoom">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                </button>
+              </div>
+            </div>
+            <!-- Canvas do mapa -->
+            <div class="map-canvas-wrap">
+              <canvas id="rain-map" width="580" height="340"></canvas>
+              <div class="map-legend-bar">
+                <span class="legend-label">0 mm</span>
+                <div class="legend-gradient"></div>
+                <span class="legend-label">120+ mm</span>
+              </div>
+            </div>
+            <!-- Cards inferiores -->
+            <div class="map-footer-cards">
+              <div class="info-card amber">
+                <div class="info-card-icon amber">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                </div>
+                <div>
+                  <p class="info-card-label">Risco de Doenças</p>
+                  <p class="info-card-value amber" id="val-disease">Ferrugem da Soja: Alta</p>
+                </div>
+              </div>
+              <div class="info-card blue">
+                <div class="info-card-icon blue">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                </div>
+                <div>
+                  <p class="info-card-label">Radiação Solar</p>
+                  <p class="info-card-value white" id="val-radiation">850 W/m²</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── COLUNA DIREITA ── -->
+        <div class="col-right">
+
+          <!-- Card: Índice de Umidade do Solo -->
+          <div class="card card-soil">
+            <p class="soil-eyebrow">ÍNDICE DE UMIDADE DO SOLO</p>
+            <div class="gauge-wrap">
+              <svg id="gauge-svg" class="gauge-svg" viewBox="0 0 140 140">
+                <circle class="gauge-track" cx="70" cy="70" r="56" fill="transparent" stroke-width="9"/>
+                <circle class="gauge-fill" id="gauge-circle" cx="70" cy="70" r="56"
+                  fill="transparent" stroke-width="9"
+                  stroke-dasharray="351.86"
+                  stroke-dashoffset="84.45"
+                  stroke-linecap="round"/>
+              </svg>
+              <div class="gauge-inner">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="#96ceea" stroke="none"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                <span class="gauge-value" id="val-soil">76%</span>
+              </div>
+            </div>
+            <div class="soil-status-badge" id="soil-status">Condição: Adequada</div>
+          </div>
+
+          <!-- Card: Aplicação de Pesticidas -->
+          <div class="card card-pesticide">
+            <div class="card-header-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f0bd8b" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <h3 class="card-title white">Aplicação de Pesticidas</h3>
+            </div>
+
+            <div class="schedule-list">
+              <!-- Ideal -->
+              <div class="schedule-item ideal">
+                <div class="schedule-row">
+                  <span class="schedule-time">06:00 — 09:00</span>
+                  <span class="schedule-tag ideal">IDEAL</span>
+                </div>
+                <p class="schedule-desc">Ventos calmos e umidade favorável.</p>
+              </div>
+              <!-- Evitar -->
+              <div class="schedule-item evitar">
+                <div class="schedule-row">
+                  <span class="schedule-time">09:00 — 17:00</span>
+                  <span class="schedule-tag evitar">EVITAR</span>
+                </div>
+                <p class="schedule-desc">Alta radiação solar e risco de deriva.</p>
+              </div>
+              <!-- Recomendado -->
+              <div class="schedule-item recomendado">
+                <div class="schedule-row">
+                  <span class="schedule-time">18:00 — 21:00</span>
+                  <span class="schedule-tag recomendado">RECOMENDADO</span>
+                </div>
+                <p class="schedule-desc">Condições estáveis de temperatura.</p>
+              </div>
+            </div>
+
+            <div class="pesticide-info">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f0bd8b" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span id="val-wind-info">Dados baseados na velocidade do vento atual (13 km/h).</span>
+            </div>
+          </div>
+
+        </div>
+      </div><!-- /bento-grid -->
+    </main>
+  </div><!-- /layout -->
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <span>© 2026 Cocari Coop</span>
+    <span class="footer-sep">·</span>
+    <a href="#">Privacidade</a>
+    <span class="footer-sep">·</span>
+    <a href="#">Termos</a>
+  </footer>
+
+  <script src="app.js"></script>
 </body>
 </html>
