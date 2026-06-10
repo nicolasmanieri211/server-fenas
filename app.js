@@ -1,9 +1,6 @@
 // CONFIGURAÇÃO DO GOOGLE SHEETS
-const SHEET_ID = '14PcJnhdht8cT9zRv4hubWl_0gHXp__VVBMmu6f9nuCU'; 
-const SHEET_NAME = 'Página1'; 
-
-// URL TOTALMENTE CORRIGIDA: Usa o domínio certo do Docs e o caractere $ antes da chave
-const url = `https://google.com{SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(SHEET_NAME)}`;
+// Convertido automaticamente para puxar os dados brutos do seu link de publicação
+const url = 'https://google.com';
 
 // Função principal que busca e processa as informações
 async function atualizarDashboard() {
@@ -15,7 +12,7 @@ async function atualizarDashboard() {
     const dados = extrairLinhasCsv(csvText);
 
     if (dados.length > 0) {
-      // O objeto 'dados[0]' contém a primeira linha de dados logo após o cabeçalho
+      // Passa a primeira linha preenchida (abaixo dos cabeçalhos) para a tela
       renderizarDadosNoHTML(dados[0]);
     }
   } catch (error) {
@@ -50,7 +47,7 @@ function renderizarDadosNoHTML(dadosAtualizados) {
   document.getElementById('val-temp').innerText = `${dadosAtualizados.temperatura}°C`;
   document.getElementById('val-temp-min').innerText = `${dadosAtualizados.temp_min}°C`;
   document.getElementById('val-temp-max').innerText = `${dadosAtualizados.temp_max}°C`;
-  document.getElementById('val-hum').innerText = `${dadosAuthorized || dadosAtualizados.umidade}%`;
+  document.getElementById('val-hum').innerText = `${dadosAtualizados.umidade}%`;
   document.getElementById('val-wind').innerText = dadosAtualizados.vento;
   document.getElementById('val-rain-week').innerText = `${dadosAtualizados.chuva_semana} mm`;
 
