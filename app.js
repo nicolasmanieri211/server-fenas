@@ -1,6 +1,6 @@
 // CONFIGURAÇÃO DO GOOGLE SHEETS
 // Corrigido: Extraído apenas o ID real da sua planilha
-const SHEET_ID = '14PcJnhdht8cT9zRv4hubWl_0gHXp__VVBMmu6f9nuCU'; 
+const SHEET_ID = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQKqqsHaj5P4yc-WFlVOsiWsi8D2phxSV5oFI-cuuTjZQXVZb7pL72N2ZBGLmsTKnPRwJVjcVB9lN5e/pubhtml'; 
 const SHEET_NAME = 'Página1'; // Nome da aba inferior da sua planilha
 
 // Constrói a URL correta para exportar os dados brutos em formato CSV (Corrigido o ${SHEET_ID})
