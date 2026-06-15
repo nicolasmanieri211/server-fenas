@@ -189,6 +189,38 @@ button { cursor: pointer; font-family: inherit; }
   50%      { opacity: 0.5; transform: scale(0.75); }
 }
 
+.sheet-status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-family: var(--font-data);
+  font-weight: 500;
+  color: var(--on-surface-dim);
+  letter-spacing: 0.04em;
+  margin-left: 6px;
+  padding: 4px 10px;
+  border-radius: var(--r-full);
+  background: var(--surface-high);
+  border: 1px solid rgba(64,72,76,0.3);
+  transition: background var(--ease), color var(--ease);
+}
+
+.sheet-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--outline);
+  transition: background var(--ease);
+}
+
+.sheet-status.ok .sheet-dot { background: var(--secondary); box-shadow: 0 0 8px rgba(166,209,173,0.5); }
+.sheet-status.error .sheet-dot { background: var(--error); box-shadow: 0 0 8px rgba(255,180,171,0.5); }
+.sheet-status.sync .sheet-dot { background: var(--primary); animation: pulse-dot 1.2s ease infinite; }
+
+.sheet-status.ok { color: var(--secondary); }
+.sheet-status.error { color: var(--error); }
+
 /* ────────────────────────────────────────────────
    LAYOUT
 ───────────────────────────────────────────────── */
