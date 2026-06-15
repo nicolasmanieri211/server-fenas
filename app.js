@@ -2,16 +2,13 @@
 // GOOGLE SHEETS
 // =====================================
 
-// Link publicado da planilha
-const SHEET_URL =
-'https://docs.google.com/spreadsheets/d/e/2PACX-1vQKqqsHaj5P4yc-WFlVOsiWsi8D2phxSV5oFI-cuuTjZQXVZb7pL72N2ZBGLmsTKnPRwJVjcVB9lN5e/pub';
+const SHEET_ID = '14PcJnhdht8cT9zRv4hubWl_0gHXp__VVBMmu6f9nuCU';
 
-// Nome da aba
-const SHEET_NAME = 'Página1';
+// gid=0 = primeira aba
+const GID = '0';
 
-// Endereço CSV
 const URL =
-`${SHEET_URL}?output=csv&sheet=${encodeURIComponent(SHEET_NAME)}`;
+`https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID}`;
 
 
 // =====================================
@@ -25,16 +22,26 @@ async function atualizarDashboard() {
     const resposta = await fetch(URL);
 
     if (!resposta.ok) {
-      throw new Error('Falha ao acessar a planilha.');
+
+      throw new Error('Não foi possível acessar a planilha.');
+
     }
 
     const csv = await resposta.text();
 
     const dados = converterCSV(csv);
 
-    if (!dados.length) return;
+    if (!dados.length) {
+
+      console.log('Nenhum dado encontrado.');
+
+      return;
+
+    }
 
     atualizarTela(dados[0]);
+
+    console.log('Planilha atualizada.');
 
   }
 
@@ -53,19 +60,19 @@ async function atualizarDashboard() {
 
 function converterCSV(csv) {
 
-  const linhas = csv.trim().split('\n');
+  const linhas = csv.trim().split(/\r?\n/);
 
   const cabecalho = linhas[0]
-  .split(',')
-  .map(c => c.replace(/"/g, '').trim());
+    .split(',')
+    .map(item => item.replace(/"/g, '').trim());
 
   const registros = [];
 
   for (let i = 1; i < linhas.length; i++) {
 
     const valores = linhas[i]
-    .split(',')
-    .map(c => c.replace(/"/g, '').trim());
+      .split(',')
+      .map(item => item.replace(/"/g, '').trim());
 
     const obj = {};
 
@@ -85,71 +92,7 @@ function converterCSV(csv) {
 
 
 // =====================================
-// ATUALIZAR HTML
-// =====================================
-
-function atualizarTela(d) {
-
-  atualizar('val-temp', `${d.temperatura || '--'}°C`);
-
-  atualizar('val-temp-min', `${d.temp_min || '--'}°C`);
-
-  atualizar('val-temp-max', `${d.temp_max || '--'}°C`);
-
-  atualizar('val-hum', `${d.umidade || '--'}%`);
-
-  atualizar('val-wind', d.vento || '--');
-
-  atualizar('val-rain-week', `${d.chuva_semana || '--'} mm`);
-
-  atualizar('val-disease', d.risco_doenca || '--');
-
-
-
-  // Umidade do solo
-
-  const solo = Number(d.agua_solo || 0);
-
-  atualizar('val-soil', `${solo}%`);
-
-
-
-  // Gauge circular
-
-  const gauge = document.getElementById('gauge-circle');
-
-  if (gauge) {
-
-    const raio = gauge.r.baseVal.value;
-
-    const circ = 2 * Math.PI * raio;
-
-    gauge.style.strokeDasharray = circ;
-
-    gauge.style.strokeDashoffset =
-      circ - (solo / 100) * circ;
-
-  }
-
-
-
-  // Barra verde
-
-  atualizar('val-water-pct', `${solo}%`);
-
-  const barra = document.getElementById('bar-water');
-
-  if (barra) {
-
-    barra.style.width = `${solo}%`;
-
-  }
-
-}
-
-
-// =====================================
-// AUXILIAR
+// ATUALIZAR ELEMENTOS
 // =====================================
 
 function atualizar(id, valor) {
@@ -159,6 +102,67 @@ function atualizar(id, valor) {
   if (elemento) {
 
     elemento.innerText = valor;
+
+  }
+
+}
+
+
+// =====================================
+// ATUALIZAR TELA
+// =====================================
+
+function atualizarTela(dados) {
+
+  atualizar('val-temp', `${dados.temperatura || '--'}°C`);
+
+  atualizar('val-temp-min', `${dados.temp_min || '--'}°C`);
+
+  atualizar('val-temp-max', `${dados.temp_max || '--'}°C`);
+
+  atualizar('val-hum', `${dados.umidade || '--'}%`);
+
+  atualizar('val-wind', dados.vento || '--');
+
+  atualizar('val-rain-week', `${dados.chuva_semana || '--'} mm`);
+
+  atualizar('val-disease', dados.risco_doenca || '--');
+
+
+  // Água do solo
+
+  const solo = Number(dados.agua_solo || 0);
+
+  atualizar('val-soil', `${solo}%`);
+
+  atualizar('val-water-pct', `${solo}%`);
+
+
+  // Barra
+
+  const barra = document.getElementById('bar-water');
+
+  if (barra) {
+
+    barra.style.width = `${solo}%`;
+
+  }
+
+
+  // Gauge
+
+  const gauge = document.getElementById('gauge-circle');
+
+  if (gauge) {
+
+    const raio = gauge.r.baseVal.value;
+
+    const circunferencia = 2 * Math.PI * raio;
+
+    gauge.style.strokeDasharray = circunferencia;
+
+    gauge.style.strokeDashoffset =
+      circunferencia - (solo / 100) * circunferencia;
 
   }
 
@@ -205,6 +209,6 @@ window.addEventListener('DOMContentLoaded', () => {
 // ATUALIZAÇÃO AUTOMÁTICA
 // =====================================
 
-// Atualiza a cada 5 minutos
+// 5 minutos
 
 setInterval(atualizarDashboard, 300000);
