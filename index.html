@@ -116,10 +116,10 @@
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#96ceea" stroke-width="1.8"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>
                 <span class="temp-label-sm">TEMPERATURA</span>
               </div>
-              <div class="temp-value" id="val-temp">24.8°C</div>
+              <div class="temp-value" id="val-temp">---°C</div>
               <div class="temp-range">
-                <span>Min: <strong id="val-temp-min">18.2°C</strong></span>
-                <span>Máx: <strong id="val-temp-max">30.5°C</strong></span>
+                <span>Min: <strong id="val-temp-min">---°C</strong></span>
+                <span>Máx: <strong id="val-temp-max">---°C</strong></span>
               </div>
             </div>
 
@@ -131,7 +131,7 @@
                 </div>
                 <div>
                   <p class="metric-item-label">Umidade</p>
-                  <p class="metric-item-value" id="val-hum">68%</p>
+                  <p class="metric-item-value" id="val-hum">---%</p>
                 </div>
               </div>
               <div class="metric-item">
@@ -140,7 +140,7 @@
                 </div>
                 <div>
                   <p class="metric-item-label">Vento</p>
-                  <p class="metric-item-value" id="val-wind">13 km/h NO</p>
+                  <p class="metric-item-value" id="val-wind">--- km/h NO</p>
                 </div>
               </div>
               <div class="metric-item metric-full">
@@ -149,7 +149,7 @@
                 </div>
                 <div>
                   <p class="metric-item-label">Total da Semana</p>
-                  <p class="metric-item-value" id="val-rain-week">12.4 mm</p>
+                  <p class="metric-item-value" id="val-rain-week">--- mm</p>
                 </div>
               </div>
             </div>
@@ -165,20 +165,20 @@
               <div class="hidrico-bar-section">
                 <div class="hidrico-bar-labels">
                   <span>Disponibilidade de Água</span>
-                  <span class="hidrico-pct green" id="val-water-pct">92%</span>
+                  <span class="hidrico-pct green" id="val-water-pct">---%</span>
                 </div>
                 <div class="progress-track">
-                  <div class="progress-fill green" id="bar-water" style="width: 92%"></div>
+                  <div class="progress-fill green" id="bar-water" style="width: 100%"></div>
                 </div>
               </div>
               <div class="hidrico-divider"></div>
               <div class="hidrico-row">
                 <span class="hidrico-label">Déficit Hídrico</span>
-                <span class="hidrico-val red" id="val-deficit">0 mm</span>
+                <span class="hidrico-val red" id="val-deficit">--- mm</span>
               </div>
               <div class="hidrico-row">
                 <span class="hidrico-label">Excesso Hídrico</span>
-                <span class="hidrico-val green" id="val-excess">15 mm</span>
+                <span class="hidrico-val green" id="val-excess">--- mm</span>
               </div>
             </div>
           </div>
@@ -204,9 +204,9 @@
             <div class="map-canvas-wrap">
               <img src="screen.jpg" alt="Mapa de chuva dos últimos 7 dias em São Pedro do Ivaí" id="rain-map-img" style="width: 100%; height: auto; display: block;" />
               <div class="map-legend-bar">
-                <span class="legend-label">0 mm</span>
+                <span class="legend-label">--- mm</span>
                 <div class="legend-gradient"></div>
-                <span class="legend-label">120+ mm</span>
+                <span class="legend-label">---+ mm</span>
               </div>
             </div>
 
@@ -218,7 +218,7 @@
                 </div>
                 <div>
                   <p class="info-card-label">Risco de Doenças</p>
-                  <p class="info-card-value amber" id="val-disease">Ferrugem da Soja: Alta</p>
+                  <p class="info-card-value amber" id="val-disease">----------------</p>
                 </div>
               </div>
               <div class="info-card blue">
@@ -227,7 +227,7 @@
                 </div>
                 <div>
                   <p class="info-card-label">Radiação Solar</p>
-                  <p class="info-card-value white" id="val-radiation">850 W/m²</p>
+                  <p class="info-card-value white" id="val-radiation">--- W/m²</p>
                 </div>
               </div>
             </div>
@@ -251,7 +251,7 @@
               </svg>
               <div class="gauge-inner">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="#96ceea" stroke="none"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
-                <span class="gauge-value" id="val-soil">100%</span>
+                <span class="gauge-value" id="val-soil">-_-%</span>
               </div>
             </div>
             <div class="soil-status-badge" id="soil-status">Condição: Adequada</div>
@@ -268,15 +268,15 @@
               <!-- Ideal -->
               <div class="schedule-item ideal">
                 <div class="schedule-row">
-                  <span class="schedule-time">06:00 — 09:00</span>
+                  <span class="schedule-time">---- — ----</span>
                   <span class="schedule-tag ideal">IDEAL</span>
                 </div>
-                <p class="schedule-desc">Ventos calmos e umidade favorável.</p>
+                <p class="schedule-desc">-------------------.</p>
               </div>
               <!-- Evitar -->
               <div class="schedule-item evitar">
                 <div class="schedule-row">
-                  <span class="schedule-time">09:00 — 17:00</span>
+                  <span class="schedule-time">---- — ----</span>
                   <span class="schedule-tag evitar">EVITAR</span>
                 </div>
                 <p class="schedule-desc">Alta radiação solar e risco de deriva.</p>
@@ -284,7 +284,7 @@
               <!-- Recomendado -->
               <div class="schedule-item recomendado">
                 <div class="schedule-row">
-                  <span class="schedule-time">18:00 — 21:00</span>
+                  <span class="schedule-time">---- — ----</span>
                   <span class="schedule-tag recomendado">RECOMENDADO</span>
                 </div>
                 <p class="schedule-desc">Condições estáveis de temperatura.</p>
@@ -293,7 +293,7 @@
 
             <div class="pesticide-info">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f0bd8b" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              <span id="val-wind-info">Dados baseados na velocidade do vento atual (13 km/h).</span>
+              <span id="val-wind-info">Dados baseados na velocidade do vento atual (-- km/h).</span>
             </div>
           </div>
 
