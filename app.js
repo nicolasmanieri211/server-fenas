@@ -1,19 +1,20 @@
-// =====================================
+// =========================================
 // GOOGLE SHEETS
-// =====================================
+// =========================================
 
 const SHEET_ID = '14PcJnhdht8cT9zRv4hubWl_0gHXp__VVBMmu6f9nuCU';
 
-// gid=0 = primeira aba
 const GID = '0';
 
 const URL =
 `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID}`;
 
+const INTERVALO = 300000; // 5 minutos
 
-// =====================================
+
+// =========================================
 // BUSCAR DADOS
-// =====================================
+// =========================================
 
 async function atualizarDashboard() {
 
@@ -31,17 +32,11 @@ async function atualizarDashboard() {
 
     const dados = converterCSV(csv);
 
-    if (!dados.length) {
-
-      console.log('Nenhum dado encontrado.');
-
-      return;
-
-    }
+    if (!dados.length) return;
 
     atualizarTela(dados[0]);
 
-    console.log('Planilha atualizada.');
+    console.log('Dados atualizados.');
 
   }
 
@@ -54,31 +49,31 @@ async function atualizarDashboard() {
 }
 
 
-// =====================================
+// =========================================
 // CONVERTER CSV
-// =====================================
+// =========================================
 
 function converterCSV(csv) {
 
   const linhas = csv.trim().split(/\r?\n/);
 
-  const cabecalho = linhas[0]
+  const cabecalhos = linhas[0]
     .split(',')
-    .map(item => item.replace(/"/g, '').trim());
+    .map(c => c.replace(/"/g,'').trim());
 
   const registros = [];
 
-  for (let i = 1; i < linhas.length; i++) {
+  for(let i=1;i<linhas.length;i++){
 
     const valores = linhas[i]
       .split(',')
-      .map(item => item.replace(/"/g, '').trim());
+      .map(c => c.replace(/"/g,'').trim());
 
     const obj = {};
 
-    cabecalho.forEach((campo, indice) => {
+    cabecalhos.forEach((campo,index)=>{
 
-      obj[campo] = valores[indice];
+      obj[campo] = valores[index];
 
     });
 
@@ -91,15 +86,15 @@ function converterCSV(csv) {
 }
 
 
-// =====================================
-// ATUALIZAR ELEMENTOS
-// =====================================
+// =========================================
+// ATUALIZAR ELEMENTO
+// =========================================
 
-function atualizar(id, valor) {
+function atualizar(id, valor){
 
   const elemento = document.getElementById(id);
 
-  if (elemento) {
+  if(elemento){
 
     elemento.innerText = valor;
 
@@ -108,107 +103,105 @@ function atualizar(id, valor) {
 }
 
 
-// =====================================
-// ATUALIZAR TELA
-// =====================================
+// =========================================
+// ATUALIZAR DASHBOARD
+// =========================================
 
-function atualizarTela(dados) {
+function atualizarTela(d){
 
-  atualizar('val-temp', `${dados.temperatura || '--'}°C`);
+  atualizar('val-temp',`${d.temperatura}°C`);
 
-  atualizar('val-temp-min', `${dados.temp_min || '--'}°C`);
+  atualizar('val-temp-min',`${d.temp_min}°C`);
 
-  atualizar('val-temp-max', `${dados.temp_max || '--'}°C`);
+  atualizar('val-temp-max',`${d.temp_max}°C`);
 
-  atualizar('val-hum', `${dados.umidade || '--'}%`);
+  atualizar('val-hum',`${d.umidade}%`);
 
-  atualizar('val-wind', dados.vento || '--');
+  atualizar('val-wind',d.vento);
 
-  atualizar('val-rain-week', `${dados.chuva_semana || '--'} mm`);
+  atualizar('val-rain-week',`${d.chuva_semana} mm`);
 
-  atualizar('val-disease', dados.risco_doenca || '--');
-
-
-  // Água do solo
-
-  const solo = Number(dados.agua_solo || 0);
-
-  atualizar('val-soil', `${solo}%`);
-
-  atualizar('val-water-pct', `${solo}%`);
+  atualizar('val-disease',d.risco_doenca);
 
 
-  // Barra
+  // Umidade do solo
+
+  const solo = Number(d.agua_solo);
+
+  atualizar('val-soil',`${solo}%`);
+
+  atualizar('val-water-pct',`${solo}%`);
+
+
+  // Barra verde
 
   const barra = document.getElementById('bar-water');
 
-  if (barra) {
+  if(barra){
 
     barra.style.width = `${solo}%`;
 
   }
 
 
-  // Gauge
+  // Gauge circular
 
   const gauge = document.getElementById('gauge-circle');
 
-  if (gauge) {
+  if(gauge){
 
     const raio = gauge.r.baseVal.value;
 
-    const circunferencia = 2 * Math.PI * raio;
+    const circ = 2 * Math.PI * raio;
 
-    gauge.style.strokeDasharray = circunferencia;
+    gauge.style.strokeDasharray = circ;
 
     gauge.style.strokeDashoffset =
-      circunferencia - (solo / 100) * circunferencia;
+      circ - (solo / 100) * circ;
 
   }
 
 }
 
 
-// =====================================
+// =========================================
 // BOTÃO SINCRONIZAR
-// =====================================
+// =========================================
 
-const btn = document.getElementById('btn-sync');
+const botao = document.getElementById('btn-sync');
 
-if (btn) {
+if(botao){
 
-  btn.addEventListener('click', () => {
+  botao.addEventListener('click',()=>{
 
-    btn.classList.add('spinning');
+    botao.classList.add('spinning');
 
     atualizarDashboard();
 
-    setTimeout(() => {
+    setTimeout(()=>{
 
-      btn.classList.remove('spinning');
+      botao.classList.remove('spinning');
 
-    }, 800);
+    },800);
 
   });
 
 }
 
 
-// =====================================
-// INICIALIZAÇÃO
-// =====================================
+// =========================================
+// INICIAR
+// =========================================
 
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded',()=>{
 
   atualizarDashboard();
 
 });
 
 
-// =====================================
+// =========================================
 // ATUALIZAÇÃO AUTOMÁTICA
-// =====================================
+// =========================================
 
-// 5 minutos
-
-setInterval(atualizarDashboard, 300000);
+setInterval(atualizarDashboard, INTERVALO);
