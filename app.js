@@ -1,19 +1,22 @@
-const dados = {
+async function atualizarDados() {
 
-  temperatura: 28.3,
+  const resposta = await fetch('./dados.json');
 
-  temp_min: 20.9,
+  const dados = await resposta.json();
 
-  temp_max: 40.2,
+  document.getElementById('val-temp').textContent =
+    dados.temperatura + '°C';
 
-  umidade: 68,
+  document.getElementById('val-hum').textContent =
+    dados.umidade + '%';
 
-  vento: '132 km/h NO',
+  document.getElementById('val-wind').textContent =
+    dados.vento;
 
-  chuva_semana: 188.3,
+  document.getElementById('val-radiation').textContent =
+    dados.radiacao + ' W/m²';
+}
 
-  agua_solo: 60,
+atualizarDados();
 
-  risco_doenca: 'Ferrugem da soja: baixa'
-
-};
+setInterval(atualizarDados, 60000);
