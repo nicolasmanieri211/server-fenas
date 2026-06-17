@@ -200,9 +200,9 @@
               </div>
             </div>
             <!-- Canvas do mapa -->
-                       <!-- Canvas do mapa -->
             <div class="map-canvas-wrap">
               <img src="screen.jpg" alt="Mapa de chuva dos últimos 7 dias em São Pedro do Ivaí" id="rain-map-img" style="width: 100%; height: auto; display: block;" />
+              <div id="map-points-overlay"></div>
               <div class="map-legend-bar">
                 <span class="legend-label">--- mm</span>
                 <div class="legend-gradient"></div>
@@ -310,6 +310,59 @@
     <span class="footer-sep">·</span>
     <a href="#">Termos</a>
   </footer>
+
+  <!-- MODAL: DETALHES DO PONTO DE COLETA -->
+  <div id="point-modal" class="point-modal">
+    <div class="point-modal-backdrop"></div>
+    <div class="point-modal-card">
+      <div class="point-modal-header">
+        <div>
+          <h3 id="modal-point-name">Ponto de Coleta</h3>
+          <p id="modal-point-location">Localização</p>
+        </div>
+        <button class="point-modal-close" id="point-modal-close" title="Fechar">×</button>
+      </div>
+      <div class="point-modal-body">
+        <div class="modal-grid">
+          <div class="modal-row">
+            <span class="modal-label">Temperatura</span>
+            <span class="modal-value" id="modal-temp">--°C</span>
+          </div>
+          <div class="modal-row">
+            <span class="modal-label">Umidade</span>
+            <span class="modal-value" id="modal-hum">--%</span>
+          </div>
+          <div class="modal-row">
+            <span class="modal-label">Vento</span>
+            <span class="modal-value" id="modal-wind">--</span>
+          </div>
+          <div class="modal-row">
+            <span class="modal-label">Chuva Semana</span>
+            <span class="modal-value" id="modal-rain">-- mm</span>
+          </div>
+          <div class="modal-row">
+            <span class="modal-label">Radiação</span>
+            <span class="modal-value" id="modal-radiation">-- W/m²</span>
+          </div>
+          <div class="modal-row">
+            <span class="modal-label">Umidade do Solo</span>
+            <span class="modal-value" id="modal-soil">--%</span>
+          </div>
+          <div class="modal-row">
+            <span class="modal-label">Risco de Doenças</span>
+            <span class="modal-value" id="modal-disease">--</span>
+          </div>
+          <div class="modal-row">
+            <span class="modal-label">Status</span>
+            <span class="modal-value" id="modal-status">--</span>
+          </div>
+        </div>
+      </div>
+      <div class="point-modal-footer">
+        <button class="point-modal-btn" id="modal-use-data">Usar dados deste ponto</button>
+      </div>
+    </div>
+  </div>
 
   <script src="app.js"></script>
 </body>
